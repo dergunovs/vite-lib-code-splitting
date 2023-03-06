@@ -1,5 +1,4 @@
 import fs from "fs";
-import path from "path";
 import vue from "@vitejs/plugin-vue";
 import dts from "vite-plugin-dts";
 import cssInjectedByJsPlugin from "vite-plugin-css-injected-by-js";
@@ -30,8 +29,6 @@ export default defineConfig({
     },
   },
 
-  resolve: { alias: { "@": path.resolve(__dirname, "./src") } },
-
   plugins: [
     vue(),
     cssInjectedByJsPlugin({ relativeCSSInjection: true }),
@@ -48,10 +45,6 @@ export default defineConfig({
           dest: "",
           rename: "index.d.ts",
           transform: (contents) => contents.toString().replace(/.vue/g, ""),
-        },
-        {
-          src: "src/components/interface/index.ts",
-          dest: "interface",
         },
         {
           src: "src/assets/style.css",
