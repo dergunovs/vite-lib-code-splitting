@@ -49,7 +49,6 @@ export default defineConfig({
         {
           src: "src/assets/style.css",
           dest: "",
-          rename: "style.css",
         },
       ],
     }),
