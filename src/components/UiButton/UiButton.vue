@@ -1,5 +1,5 @@
 <template>
-  <button :class="$style.button" :data-color="props.color">
+  <button class="button" :data-color="props.color">
     <slot></slot>
   </button>
 </template>
@@ -12,7 +12,7 @@
   }>();
 </script>
 
-<style module>
+<style>
   .button {
     display: inline-flex;
     padding: 16px 32px;

@@ -3,7 +3,7 @@
     type="text"
     :value="props.modelValue"
     :disabled="props.isDisabled"
-    :class="$style.input"
+    class="input"
     @input="emit('update:modelValue', ($event.target as HTMLInputElement).value)"
   />
 </template>
@@ -17,7 +17,7 @@
   const emit = defineEmits(["update:modelValue"]);
 </script>
 
-<style module>
+<style>
   .input {
     padding: 4px 8px;
     border-radius: 4px;

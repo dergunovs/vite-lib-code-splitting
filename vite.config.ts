@@ -1,7 +1,7 @@
 import fs from "fs";
+import { resolve } from "path";
 import vue from "@vitejs/plugin-vue";
 import dts from "vite-plugin-dts";
-import cssInjectedByJsPlugin from "vite-plugin-css-injected-by-js";
 import { viteStaticCopy } from "vite-plugin-static-copy";
 import { defineConfig } from "vite";
 
@@ -31,7 +31,6 @@ export default defineConfig({
 
   plugins: [
     vue(),
-    cssInjectedByJsPlugin({ relativeCSSInjection: true }),
     dts({ entryRoot: "./src/components", cleanVueFileName: true }),
     viteStaticCopy({
       targets: [
@@ -52,5 +51,23 @@ export default defineConfig({
         },
       ],
     }),
+    {
+      name: "add-css-link",
+      apply: "build",
+
+      writeBundle(option, bundle) {
+        const files = Object.keys(bundle)
+          .filter((file) => file.endsWith(".css"))
+          .map((file) => file.replace(".css", ""));
+
+        for (const file of files) {
+          const filePath = resolve("", "dist", `${file}.js`);
+          const cssImport = `import "./${file.split("/")[0]}.css";`;
+          const data = fs.readFileSync(filePath, { encoding: "utf8" });
+
+          fs.writeFileSync(filePath, `${cssImport}\n${data}`);
+        }
+      },
+    },
   ],
 });
