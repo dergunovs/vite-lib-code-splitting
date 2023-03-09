@@ -3,7 +3,8 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
-  "main": "./dist/index.js",
+  "sideEffects": false,
+  "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "style": "./dist/style.css",
   "files": [
